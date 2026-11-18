@@ -1,9 +1,16 @@
 import nox
 
-nox.options.sessions = ["integration"]
+nox.options.sessions = ["unit", "integration"]
+PYTHONS = ["3.11", "3.12", "3.13", "3.14", "3.15"]
 
 
-@nox.session(python=["3.11", "3.12", "3.13", "3.14", "3.15"])
+@nox.session(python=PYTHONS)
+def unit(session):
+    session.install(".", "pytest", "pyfakefs")
+    session.run("pytest", "test/unit", *session.posargs)
+
+
+@nox.session(python=PYTHONS)
 @nox.parametrize("mkdocs", ["1.5.0", "1.5.3", "1.6.1"])
 # "latest" means the newest release pip can install next to that mkdocs and python
 @nox.parametrize("pymdown", ["10.7", "latest"])
