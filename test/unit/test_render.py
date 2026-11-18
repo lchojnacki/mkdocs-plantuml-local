@@ -17,7 +17,7 @@ def test_render_plantuml(shutil_which, subprocess_run, setup_fixtures):
     render(setup_fixtures.joinpath("sample.puml").read_text())
 
     subprocess_run.assert_called_once_with(
-        ["java", "-Djava.awt.headless=true", "-jar", ANY, ANY, "-tsvg"]
+        ["java", "-Djava.awt.headless=true", "-jar", ANY, ANY, "-tsvg"], check=False
     )
 
 
@@ -38,5 +38,5 @@ def test_render_plantuml_when_subprocess_fails(
     )
 
     subprocess_run.assert_called_once_with(
-        ["java", "-Djava.awt.headless=true", "-jar", ANY, ANY, "-tsvg"]
+        ["java", "-Djava.awt.headless=true", "-jar", ANY, ANY, "-tsvg"], check=False
     )

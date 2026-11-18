@@ -17,8 +17,8 @@ def test_with_mkdocs():
         run_mkdocs_build = subprocess.run(
             [sys.executable, "-m", "mkdocs", "build"],
             cwd=temp,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+            capture_output=True,
+            check=False,
         )
 
         assert run_mkdocs_build.returncode == 0

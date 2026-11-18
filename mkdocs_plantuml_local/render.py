@@ -19,7 +19,8 @@ def render(plantuml):
                 f"-jar {Path(__file__).parent}/plantuml.jar "
                 f"{plantuml_path} "
                 "-tsvg"
-            )
+            ),
+            check=False,
         )
 
         output_path = Path(temp).joinpath("diagram.svg")

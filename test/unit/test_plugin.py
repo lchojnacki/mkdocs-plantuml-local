@@ -70,7 +70,7 @@ def test_on_post_page_without_cache(
 @patch("mkdocs_plantuml_local.plugin.time.time", return_value=1709215168.65)
 @patch("mkdocs_plantuml_local.plugin.get_cache")
 @patch("mkdocs_plantuml_local.plugin.put_cache")
-def test_on_post_page_without_cache(
+def test_on_post_page_with_cache(
     put_cache,
     get_cache,
     time,

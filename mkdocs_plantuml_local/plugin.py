@@ -58,7 +58,8 @@ class MkDocsPluginPlantUMLLocal(
             block.getparent().replace(block, svg)
             end_time = time.time() * 1000
             self.logger.info(
-                f"Handled diagram {index + 1} of page {page.file.src_path} in {end_time - start_time}ms"
+                f"Handled diagram {index + 1} of page {page.file.src_path} "
+                f"in {end_time - start_time}ms"
             )
 
         return etree.tostring(html, encoding=str, method="html")

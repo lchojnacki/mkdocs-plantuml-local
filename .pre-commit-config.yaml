@@ -1,52 +1,38 @@
 repos:
-  - repo: https://github.com/psf/black
-    rev: 24.2.0
-    hooks:
-      - id: black
-
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+  - repo: local
     hooks:
       - id: mixed-line-ending
+        name: mixed-line-ending
+        entry: poetry run mixed-line-ending
+        language: system
+        types: [text]
       - id: detect-private-key
+        name: detect-private-key
+        entry: poetry run detect-private-key
+        language: system
+        types: [text]
       - id: end-of-file-fixer
+        name: end-of-file-fixer
+        entry: poetry run end-of-file-fixer
+        language: system
+        types: [text]
       - id: trailing-whitespace
-
-  - repo: https://github.com/psf/black
-    rev: 22.10.0
-    hooks:
-      - id: black
-
-  - repo: https://github.com/myint/autoflake.git
-    rev: v2.2.0
-    hooks:
-      - id: autoflake
-        args:
-          [
-            "--in-place",
-            "--remove-all-unused-imports",
-            "--remove-unused-variable",
-          ]
-
-  - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
-        args: [--force-single-line-imports, --profile, black]
-
-  - repo: https://github.com/myint/docformatter.git
-    rev: v1.7.5
-    hooks:
+        name: trailing-whitespace
+        entry: poetry run trailing-whitespace-fixer
+        language: system
+        types: [text]
+      - id: ruff
+        name: ruff
+        entry: poetry run ruff check --force-exclude --fix
+        language: system
+        types: [python]
+      - id: ruff-format
+        name: ruff-format
+        entry: poetry run ruff format --force-exclude
+        language: system
+        types: [python]
       - id: docformatter
-        args:
-          [
-            "--in-place",
-            "--wrap-summaries=80",
-            "--wrap-descriptions=80",
-            "--pre-summary-newline",
-          ]
-
-  - repo: https://github.com/ikamensh/flynt/
-    rev: '1.0.0'
-    hooks:
-      - id: flynt
+        name: docformatter
+        entry: poetry run docformatter --in-place --wrap-summaries=80 --wrap-descriptions=80 --pre-summary-newline
+        language: system
+        types: [python]
