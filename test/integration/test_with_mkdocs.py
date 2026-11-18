@@ -1,45 +1,13 @@
 import shutil
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 
-import pytest
 
-
-@pytest.mark.parametrize(
-    "mkdocs_version",
-    [
-        "1.6.1",
-        "1.6.0",
-        "1.5.3",
-        "1.5.2",
-        "1.5.1",
-        "1.5.0",
-        "1.4.3",
-    ],
-)
-def test_with_mkdocs_version(mkdocs_version):
+def test_with_mkdocs():
+    # dependency versions come from the environment; see noxfile.py
     with tempfile.TemporaryDirectory() as temp:
-        install_plugin = subprocess.run(
-            f"pip install .",
-            cwd=Path(__file__).parent.parent.parent,
-            shell=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-        )
-
-        assert install_plugin.returncode == 0
-
-        install_mkdocs = subprocess.run(
-            f"pip install mkdocs=={mkdocs_version}",
-            cwd=temp,
-            shell=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-        )
-
-        assert install_mkdocs.returncode == 0
-
         shutil.copytree(
             Path(__file__).parent.joinpath("fixtures", "input"),
             temp,
@@ -47,9 +15,8 @@ def test_with_mkdocs_version(mkdocs_version):
         )
 
         run_mkdocs_build = subprocess.run(
-            f"mkdocs build",
+            [sys.executable, "-m", "mkdocs", "build"],
             cwd=temp,
-            shell=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
