@@ -2,3 +2,4 @@ dist/
 mkdocs_plantuml_local/plantuml.jar
 __pycache__/
 .envrc
+.idea/
