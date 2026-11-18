@@ -4,18 +4,14 @@ import time
 import mkdocs.plugins
 from lxml import etree
 from mkdocs.config.defaults import MkDocsConfig
+from mkdocs.plugins import get_plugin_logger
 from mkdocs.structure.pages import Page
 
-import mkdocs_plantuml_local.logging
 from mkdocs_plantuml_local.caching import get_cache
 from mkdocs_plantuml_local.caching import put_cache
 from mkdocs_plantuml_local.config import MkDocsPluginPlantUMLLocalConfig
 from mkdocs_plantuml_local.dependencies import check_dependencies
 from mkdocs_plantuml_local.render import render
-
-get_plugin_logger = getattr(
-    mkdocs.plugins, "get_plugin_logger", mkdocs_plantuml_local.logging.get_plugin_logger
-)
 
 
 class MkDocsPluginPlantUMLLocal(
