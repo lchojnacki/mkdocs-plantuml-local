@@ -49,6 +49,7 @@ extend-select = [
     "E",  # pycodestyle errors
     "FLY",  # flynt: static str.join to f-string
     "I",  # isort
+    "PTH",  # flake8-use-pathlib
     "RUF",  # ruff-specific rules
     "SIM",  # flake8-simplify
     "UP",  # pyupgrade, incl. flynt's UP031 (% formatting) and UP032 (.format())

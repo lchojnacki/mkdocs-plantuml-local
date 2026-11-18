@@ -1,6 +1,5 @@
 from hashlib import sha256
-from os.path import dirname
-from os.path import join
+from pathlib import Path
 from urllib.request import urlopen
 
 # to upgrade: bump the version and take the sha256 digest of plantuml-<version>.jar
@@ -24,10 +23,8 @@ def download_plantuml():
             f"PlantUML checksum mismatch: expected {PLANTUML_SHA256}, got {digest}"
         )
 
-    with open(
-        join(dirname(__file__), "mkdocs_plantuml_local", "plantuml.jar"), "wb"
-    ) as f:
-        f.write(jar)
+    jar_path = Path(__file__).parent / "mkdocs_plantuml_local" / "plantuml.jar"
+    jar_path.write_bytes(jar)
 
 
 if __name__ == "__main__":

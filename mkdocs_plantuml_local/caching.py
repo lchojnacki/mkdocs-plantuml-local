@@ -1,11 +1,10 @@
-from os import getcwd
 from pathlib import Path
 
 from mkdocs_plantuml_local.hashing import hash_list
 
 
 def get_cache_path(*data) -> Path:
-    path = Path(getcwd())
+    path = Path.cwd()
     return path.joinpath(".cache", "plantuml_local", *hash_list(data))
 
 

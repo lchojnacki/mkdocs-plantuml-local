@@ -1,4 +1,3 @@
-from os import getcwd
 from pathlib import Path
 from unittest.mock import patch
 
@@ -29,7 +28,7 @@ def test_has_cache_when_no_cache_present():
 
 def test_has_cache_when_cache_present(hashed_list, fs):
     fs.create_file(
-        Path(getcwd()).joinpath(".cache", "plantuml_local", *hashed_list),
+        Path.cwd().joinpath(".cache", "plantuml_local", *hashed_list),
         contents="CACHE!",
     )
     assert has_cache(*hashed_list)
@@ -41,7 +40,7 @@ def test_get_cache_when_no_cache_present(hashed_list):
 
 def test_get_cache_when_cache_present(hashed_list, fs):
     fs.create_file(
-        Path(getcwd()).joinpath(".cache", "plantuml_local", *hashed_list),
+        Path.cwd().joinpath(".cache", "plantuml_local", *hashed_list),
         contents="CACHE!",
     )
     assert get_cache(*hashed_list) == "CACHE!"
@@ -49,13 +48,13 @@ def test_get_cache_when_cache_present(hashed_list, fs):
 
 def test_put_cache_when_no_cache_present(hashed_list):
     put_cache("NEW CACHE!", hashed_list)
-    expected_path = Path(getcwd()).joinpath(".cache", "plantuml_local", *hashed_list)
+    expected_path = Path.cwd().joinpath(".cache", "plantuml_local", *hashed_list)
 
     assert expected_path.read_text() == "NEW CACHE!"
 
 
 def test_put_cache_when_cache_present(hashed_list, fs):
-    expected_path = Path(getcwd()).joinpath(".cache", "plantuml_local", *hashed_list)
+    expected_path = Path.cwd().joinpath(".cache", "plantuml_local", *hashed_list)
     fs.create_file(expected_path, contents="CACHE!")
 
     put_cache("NEW CACHE!", hashed_list)
